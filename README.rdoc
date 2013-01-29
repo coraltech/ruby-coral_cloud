@@ -1,31 +1,19 @@
-= coral_plan
+= coral_cloud
 
-This library provides the ability to create, load, execute, and save 
-execution plans.
+This library provides the ability to define and manage servers.  These servers 
+can be local virtual machines (interfaced by Vagrant) or (in the near future)
+remote servers on various IAAS providers, such as Rackspace and Amazon.
 
-The Coral Plan library contains a system that defines execution plans of 
-CLI commands.  The goal is to make it easy to create, edit, load, execute,
-and save these plans in a machine readable format (ie; JSON).  The system 
-is composed of Events, Commands, Actions, and of course Plans. There are a
-few simple rules:
-    
-1. All plans begin with a Command but may have more Commands defined
-   that act in sequence unless there are errors with previous commands.
-    
-2. Commands can trigger Events of various types, where Events are reading
-   and checking (ie; Regular expressions) Command output line by line.
-       
-3. Events have different criteria for measuring success and will have 
-   different fields.  For example, a Regexp event contains a 'pattern'
-   field.
-       
-4. Actions listen for Events and run Commands, with the ability to override
-   default Command parameters.  Actions may also generate Events on either
-   successful execution or failure which can trigger other Actions.
+This library utilizes the Puppet provisioner to build servers and Vagrant
+to run them locally.  Eventually a cohesive API will be developed that will
+allow for easily switching and performing the same operations on different
+providers.  For now this library focuses on integration with Vagrant.
+
+More to come soon...
        
 Note:  This library is still very early in development!
 
-== Contributing to coral_plan
+== Contributing to coral_cloud
  
 * Check out the latest master to make sure the feature hasn't been implemented 
   or the bug hasn't been fixed yet.
