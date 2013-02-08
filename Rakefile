@@ -1,11 +1,12 @@
 # encoding: utf-8
 
 require 'rubygems'
-require 'bundler'
 require 'rake'
-require 'rake/testtask'
-require 'rdoc/task'
+require 'bundler'
 require 'jeweler'
+require 'rspec/core/rake_task'
+require 'rdoc/task'
+require 'yard'
 
 require './lib/coral_cloud.rb'
 
@@ -47,22 +48,30 @@ Jeweler::RubygemsDotOrgTasks.new
 #-------------------------------------------------------------------------------
 # Testing
 
-Rake::TestTask.new(:test) do |test|
-  test.libs << 'lib' << 'test'
-  test.pattern = 'test/**/test_*.rb'
-  test.verbose = true
+RSpec::Core::RakeTask.new(:spec, :tag) do |spec, task_args|
+  options = []
+  options << "--tag #{task_args[:tag]}" if task_args.is_a?(Array) && ! task_args[:tag].to_s.empty?  
+  spec.rspec_opts = options.join(' ')
 end
 
-task :default => :test
+task :default => :spec
 
 #-------------------------------------------------------------------------------
 # Documentation
 
-Rake::RDocTask.new do |rdoc|
-  version = Coral::Cloud::VERSION
+version   = Coral::Cloud::VERSION
+doc_title = "coral_cloud #{version}"
 
+Rake::RDocTask.new do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
-  rdoc.title    = "coral_cloud #{version}"
+  rdoc.title    = doc_title
   rdoc.rdoc_files.include('README*')
   rdoc.rdoc_files.include('lib/**/*.rb')
+end
+
+#---
+
+YARD::Rake::YardocTask.new do |ydoc|
+  ydoc.files   = [ 'README*', 'lib/**/*.rb' ]
+  ydoc.options = [ "--output-dir yardoc", "--title '#{doc_title}'" ]
 end
