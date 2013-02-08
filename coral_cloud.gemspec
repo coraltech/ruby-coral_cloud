@@ -24,11 +24,14 @@ Gem::Specification.new do |s|
     "README.rdoc",
     "Rakefile",
     "VERSION",
+    "coral_cloud.gemspec",
     "lib/coral_cloud.rb",
     "lib/coral_cloud/base.rb",
     "lib/coral_cloud/event/puppet_event.rb",
     "lib/coral_cloud/server.rb",
-    "lib/coral_cloud/share.rb"
+    "lib/coral_cloud/share.rb",
+    "spec/coral_test_kernel.rb",
+    "spec/spec_helper.rb"
   ]
   s.homepage = "http://github.com/coraltech/ruby-coral_cloud"
   s.licenses = ["GPLv3"]
