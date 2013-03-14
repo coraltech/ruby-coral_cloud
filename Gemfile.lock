@@ -1,7 +1,7 @@
 GEM
   remote: http://rubygems.org/
   specs:
-    coral_core (0.1.7)
+    coral_core (0.1.8)
       git (= 1.2.5)
       json (>= 1.4)
       log4r (~> 1.1)
