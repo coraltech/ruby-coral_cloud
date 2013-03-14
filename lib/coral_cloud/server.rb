@@ -159,7 +159,7 @@ class Server < Core
     
     if @machine.created?
       if @machine.state == :running
-        success = Coral::Command.new("vagrant provision #{@name}").exec! do |line|
+        success = Coral::Command.new("vagrant provision #{@name}").exec!(options) do |line|
           process_puppet_message(line)
         end    
       end
