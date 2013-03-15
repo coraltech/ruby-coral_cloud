@@ -10,7 +10,7 @@ class Server < Core
     super(options)
     
     self.machine = ( options.has_key?(:machine) ? options[:machine] : '' )    
-    @cloud       = ( options.has_key?(:cloud) ? options[:cloud] : Coral.create_cloud(@name, options) )    
+    @cloud       = ( options.has_key?(:cloud) ? options[:cloud] : Coral.create_cloud(@name, options) )
   end
    
   #-----------------------------------------------------------------------------
@@ -95,11 +95,12 @@ class Server < Core
      
   def repositories(options = {}, return_objects = true)
     repositories = array(options[:repos], @cloud.repositories.keys, true)
-    results      = ( return_objects ? {} : [] )    
+    results      = ( return_objects ? {} : [] )
     
     return results unless repositories.is_a?(Array)
     
     repositories.each do |repo_name|
+      repo_name = repo_name.to_s
       if @cloud.repositories.has_key?(repo_name)
         if return_objects
           results[repo_name] = @cloud.repositories[repo_name]
@@ -120,6 +121,7 @@ class Server < Core
     return results unless shares.is_a?(Array)
     
     shares.each do |share_name|
+      share_name = share_name.to_s
       if @cloud.shares.has_key?(share_name)
         if return_objects
           results[share_name] = @cloud.shares[share_name]
@@ -217,7 +219,7 @@ class Server < Core
   
   #-----------------------------------------------------------------------------
   
-  def commit(options = {})    
+  def commit(options = {})
     repositories(options).each do |name, repo|
       if repo.can_persist?
         repo.commit('.', options)
